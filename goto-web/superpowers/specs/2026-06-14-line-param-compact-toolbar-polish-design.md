@@ -69,10 +69,11 @@ The field chrome should be lighter than the current screenshot:
 - Numeric value should be visually stronger than the `W` or `L` badge.
 - `W` and `L` should use a small, fixed-width badge area with secondary text color.
 
-Recommended sizing intent:
+Approved preview sizing intent:
 
 - Color: square, about `36px` by `36px`.
-- Line type: about `64px` wide by the shared control height.
+- Line type outer control: about `70px` wide by the shared control height.
+- Line type inner preview: about `20px` high, `4px` border radius, and close to the outer shell with about `5px` horizontal padding.
 - Width and length: about `96px` to `104px` wide by the shared control height.
 
 The implementation may tune exact widths based on the child component DOM, but equal height is a fixed requirement.
@@ -107,7 +108,8 @@ Update the existing static regression test for `lineParam.vue`:
 5. Assert the shared arrow SVG is no longer used for both width and length.
 6. Assert a shared control height variable or rule is used by all compact fields.
 7. Assert the color field is square.
-8. Keep existing assertions for tooltip titles, compact classes, wrapping, and `lineEnd` exclusion.
+8. Assert the line type preview uses the approved tighter inner spacing and smaller preview radius.
+9. Keep existing assertions for tooltip titles, compact classes, wrapping, and `lineEnd` exclusion.
 
 Manual verification:
 
@@ -117,4 +119,5 @@ Manual verification:
 4. Confirm hiding `length` removes the whole length field box.
 5. Confirm color appears as a square swatch-style control.
 6. Confirm color, line type, width, and length have the same visual height.
-7. Confirm the toolbar still wraps cleanly when narrow.
+7. Confirm the line type preview has little empty space between the white preview and the outer shell, and the white preview is not overly pill-shaped.
+8. Confirm the toolbar still wraps cleanly when narrow.
