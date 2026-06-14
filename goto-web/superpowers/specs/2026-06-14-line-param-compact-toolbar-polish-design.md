@@ -15,6 +15,8 @@ Only polish the existing compact toolbar behavior and appearance:
 
 - Fix hidden parameter rendering for `color`, `lineType`, `lineWidth`, and `length`.
 - Replace the width and length SVG icons with text badges: `W` for width and `L` for length.
+- Make the color control render as a square swatch-style control.
+- Make color, line type, width, and length controls share the same visual height.
 - Reduce visual heaviness of compact field wrappers while keeping the one-row-first, wrap-when-needed layout.
 
 `lineEnd` remains out of scope and should not be rendered.
@@ -61,8 +63,19 @@ The field chrome should be lighter than the current screenshot:
 
 - Keep a subtle border to show clickable/editable bounds.
 - Avoid overly wide empty-looking boxes.
+- Use one shared control height for all four fields, such as `36px`.
+- Color should be a true square control: width and height should match.
+- Line type should use the same height as color, width, and length, with the line preview centered.
 - Numeric value should be visually stronger than the `W` or `L` badge.
 - `W` and `L` should use a small, fixed-width badge area with secondary text color.
+
+Recommended sizing intent:
+
+- Color: square, about `36px` by `36px`.
+- Line type: about `64px` wide by the shared control height.
+- Width and length: about `96px` to `104px` wide by the shared control height.
+
+The implementation may tune exact widths based on the child component DOM, but equal height is a fixed requirement.
 
 ## Data Flow
 
@@ -92,7 +105,9 @@ Update the existing static regression test for `lineParam.vue`:
 3. Assert width uses text badge `W`.
 4. Assert length uses text badge `L`.
 5. Assert the shared arrow SVG is no longer used for both width and length.
-6. Keep existing assertions for tooltip titles, compact classes, wrapping, and `lineEnd` exclusion.
+6. Assert a shared control height variable or rule is used by all compact fields.
+7. Assert the color field is square.
+8. Keep existing assertions for tooltip titles, compact classes, wrapping, and `lineEnd` exclusion.
 
 Manual verification:
 
@@ -100,4 +115,6 @@ Manual verification:
 2. Confirm width shows `W` and length shows `L`.
 3. Confirm tooltip still shows `宽度` and `长度`.
 4. Confirm hiding `length` removes the whole length field box.
-5. Confirm the toolbar still wraps cleanly when narrow.
+5. Confirm color appears as a square swatch-style control.
+6. Confirm color, line type, width, and length have the same visual height.
+7. Confirm the toolbar still wraps cleanly when narrow.
